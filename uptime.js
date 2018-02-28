@@ -32,13 +32,21 @@ function formatTime() {
 }
 
 function update() {
-    var timeNow = new Date().toJSON();
+    var now = new Date();
+    var timeNow = now.toJSON();
     testIsOnline((online) => {
         var fn = getCurrentFileName();
         var fs = require('fs');
         var record = timeNow + ' ' + ( online ? '1' : '0');
+
+        var obj = {
+            time: timeNow,
+            hour: now.getHours(),
+            min: now.getMinutes(),
+            online: online
+        };
         console.log(record);
-        fs.appendFileSync(getCurrentFileName(), record  + '\n'); 
+        fs.appendFileSync(getCurrentFileName(), JSON.stringify(obj)  + ',\n'); 
         checkStateChange(online);
     });
 }
