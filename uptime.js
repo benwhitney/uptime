@@ -64,7 +64,7 @@ function checkStateChange(online) {
             if (outageStartTime) {
                 var outageEndTime = new Date();
                 var diffMs = outageEndTime - outageStartTime;
-                var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+                var diffMins = diffMs / 60000;                
                 
                 var obj = {
                     startTime: outageStartTime,
