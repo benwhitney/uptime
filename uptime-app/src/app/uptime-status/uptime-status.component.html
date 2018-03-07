@@ -1,0 +1,15 @@
+<div>UPTIME STATUS HERE</div>
+<div *ngIf="status">
+	<div *ngIf="status.online">
+		The internet is up!
+		<div>
+		Since {{ status.outageEnd | date:'h:mm aa' }}
+		</div>
+		{{ status.outageStart | date: 'h mm aa' }}
+	</div>
+	<div *ngIf="!status.online">
+		The internet is down!
+
+	</div>
+	{{ status | json }}
+</div>
