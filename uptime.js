@@ -1,8 +1,7 @@
-
-const dataFolder = 'data'; 
+const dataFolder = 'data';
 
 function testIsOnline(callback) {
-    var isOnline = require("is-online");
+    var isOnline = require('is-online');
     isOnline().then(online => {
         callback(online);
     });
@@ -11,7 +10,7 @@ function testIsOnline(callback) {
 function initDirectory() {
     var fs = require('fs');
     if (!fs.existsSync(dataFolder)) {
-        fs.mkdirSync(dataFolder)
+        fs.mkdirSync(dataFolder);
     }
 }
 
@@ -27,33 +26,29 @@ function getCurrentFileName() {
     return dataFolder + '/' + current + '.log';
 }
 
-function formatTime() {
-    var dateFormat = require('dateformat');
-}
-
 function update() {
     var now = new Date();
     var timeNow = now.toJSON();
-    testIsOnline((online) => {
+    testIsOnline(online => {
         var fn = getCurrentFileName();
         var fs = require('fs');
-        var record = timeNow + ' ' + ( online ? '1' : '0');
+        var record = timeNow + ' ' + (online ? '1' : '0');
 
         var obj = {
             time: timeNow,
             hour: now.getHours(),
             min: now.getMinutes(),
-            online: online
+            online: online,
         };
         console.log(record);
-        fs.appendFileSync(getCurrentFileName(), JSON.stringify(obj)  + ',\n'); 
+        fs.appendFileSync(getCurrentFileName(), JSON.stringify(obj) + ',\n');
         checkStateChange(online);
     });
 }
 
 function checkStateChange(online) {
     if (lastState == null && online) {
-        console.log('The internet is up!')
+        console.log('The internet is up!');
         lastState = online;
     }
 
@@ -64,14 +59,14 @@ function checkStateChange(online) {
             if (outageStartTime) {
                 var outageEndTime = new Date();
                 var diffMs = outageEndTime - outageStartTime;
-                var diffMins = diffMs / 60000;                
-                
+                var diffMins = diffMs / 60000;
+
                 var obj = {
                     startTime: outageStartTime,
                     endTime: outageEndTime,
-                    duration: diffMins
+                    duration: diffMins,
                 };
-                var record = JSON.stringify(obj);  
+                var record = JSON.stringify(obj);
                 console.log(record);
                 var fs = require('fs');
                 fs.appendFile(getOutageFile(), record + ',\n');
@@ -84,6 +79,7 @@ function checkStateChange(online) {
 }
 
 var outageStartTime = null;
+var lastState = null;
 
 function start() {
     initDirectory();
@@ -94,10 +90,8 @@ function start() {
     setTimeout(() => {
         setInterval(update, 60000);
         update();
-    }, ((seconds - 1) * 1000) + ms);
+    }, (seconds - 1) * 1000 + ms);
 }
-
-var lastState = null;
 
 console.log('Uptime Monitor', new Date());
 start();
