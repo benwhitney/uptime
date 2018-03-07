@@ -1,9 +1,11 @@
 import { UptimeConfig } from "./config";
+import { WebServer } from "./webserver";
 
 export class UptimeService {
 	
 	// internet outage start time
 	private outageStartTime: Date = null;
+	private outageEndTime: Date = null;
 
 	// last state (online = true)
 	private lastState?: boolean = null;
@@ -30,17 +32,17 @@ export class UptimeService {
 
 	public config: UptimeConfig;
 	
-	private getStatusFile(): string {
+	public getStatusFile(): string {
 		// get the path to the status file
 		return this.config.dataFolderPath + '/status.json';
-
 	}
-	private getOutageFile(): string {
+
+	public getOutageFile(): string {
 		// get the path to the outage file
 		return this.config.dataFolderPath + '/outage.json';
 	}
 
-	private getLogFile() {
+	public getLogFile() {
 		// get the path to the log file
 		var dateFormat = require('dateformat');
 		var now = new Date();
@@ -69,6 +71,7 @@ export class UptimeService {
 		var timeNow = now.toJSON();
 		this.isOnline((online) => {
 			this.writeLogEntry(online, now);
+			this.writeStatusEntry(online, now);
 			this.checkStateChange(online);
 		});
 	}
@@ -78,6 +81,7 @@ export class UptimeService {
 			// initial state is online
 			console.log('The internet is up!')
 			this.lastState = online;
+			this.outageEndTime = new Date();			
 		}
 
 		// if state changed between last check
@@ -85,8 +89,9 @@ export class UptimeService {
 			this.lastState = online;
 			if (online) {
 				// offline -> online
+				this.outageEndTime = new Date();
 				console.log('Internet Outage Ended');
-				this.writeOutageEntry(this.outageStartTime);
+				this.writeOutageEntry();
 			} else {
 				// online or null -> offline 
 				console.log('THE INTERNET IS DOWN!');
@@ -95,42 +100,67 @@ export class UptimeService {
 		}
 	}
 
-	private writeOutageEntry(outageStartTime: Date) {
+	private writeOutageEntry() {
 		// writes an entry to outage.json
-		let outageEndTime = new Date();
-		var diffMs = outageEndTime.getTime() - outageStartTime.getTime();
+		var diffMs = this.outageEndTime.getTime() - this.outageStartTime.getTime();
 		var diffMins = diffMs / this.MILLISECONDS_PER_MINUTE;                
 		
 		var obj = {
-			startTime: outageStartTime,
-			endTime: outageEndTime,
+			startTime: this.outageStartTime,
+			endTime: this.outageEndTime,
 			duration: diffMins
 		};
 
 		var record = JSON.stringify(obj);  
 		console.log(record);
 
-		var fs = require('fs');
-		fs.appendFile(this.getOutageFile(), record + ',\n');
+		let fs = require('fs');
+
+		let outageFile = this.getOutageFile();
+		if (fs.existsSync(outageFile)) {
+			record = ',\n' + record;
+		} else {
+			record = '[' + record;
+		}
+		fs.appendFile(outageFile, record);
 	}
 
 	private writeLogEntry(online: boolean, testTime: Date) {
-		var fs = require('fs');
+		let fs = require('fs');
 
-		var obj = {
+		let logEntry = {
 			time: testTime,
-			online: online
+			online: online,
 		};
 
 		// write output to screen
 		var record = testTime + ' ' + ( online ? '1' : '0');		
 		console.log(record);
 		
+		let logFile = this.getLogFile();
+		let entry = JSON.stringify(logEntry);
+
+		if (fs.existsSync(logFile)) {
+			entry = ',\n' + entry;
+		}  else {
+			entry = '[' + entry;
+		}
 		// write to log file 
-		fs.appendFileSync(this.getLogFile(), JSON.stringify(obj)  + ',\n'); 
+		fs.appendFileSync(logFile, entry); 
+	}
+
+	private writeStatusEntry(online: boolean, testTime: Date) {
+		var fs = require('fs');
+
+		var statusEntry = {
+			time: testTime,
+			online: online,			
+			outageEnd: (online ? this.outageEndTime : null),
+			outageStart: (!online ? this.outageStartTime : null)
+		};
 
 		// write status file 
-		fs.writeFileSync(this.getStatusFile(), JSON.stringify(obj));
+		fs.writeFileSync(this.getStatusFile(), JSON.stringify(statusEntry));
 	}
 
 } 
@@ -138,3 +168,6 @@ export class UptimeService {
 // run the service
 let service: UptimeService = new UptimeService();
 service.start();
+
+let webServer: WebServer = new WebServer(service);
+webServer.start();
