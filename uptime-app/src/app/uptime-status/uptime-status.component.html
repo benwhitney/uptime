@@ -1,15 +1,15 @@
-<div>UPTIME STATUS HERE</div>
-<div *ngIf="status">
-	<div *ngIf="status.online">
-		The internet is up!
-		<div>
-		Since {{ status.outageEnd | date:'h:mm aa' }}
+<div *ngIf="status" class="status">
+	<div *ngIf="status.online" class="">
+		<div class="alert alert-success" role="alert">
+  			<h4 class="alert-heading">The internet is up!</h4>
+			<p>Internet access was restored {{ fromNow }}.</p> 
 		</div>
-		{{ status.outageStart | date: 'h mm aa' }}
 	</div>
 	<div *ngIf="!status.online">
 		The internet is down!
-
+		<div class="alert alert-danger" role="alert">
+  			<h4 class="alert-heading">THE INTERNET IS DOWN!</h4>
+			<p>Internet access was lost {{ fromNow }}.</p> 
+		</div>
 	</div>
-	{{ status | json }}
 </div>

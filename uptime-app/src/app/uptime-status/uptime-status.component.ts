@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { UptimeService } from '../uptime-service/uptime.service';
+declare var require: any;
+import { Component, Input } from '@angular/core';
+import { UptimeStatus } from '../class/outage.class';
 
 @Component({
     selector: 'uptime-status',
@@ -8,15 +9,12 @@ import { UptimeService } from '../uptime-service/uptime.service';
 })
 export class UptimeStatusComponent {
 	
-	protected status: any;
+	@Input() public status: UptimeStatus;
+	protected minutes: number;
+	protected fromNow: string;
+	protected changeDate: Date;
 
-	constructor(protected service: UptimeService) {		
-		this.getData();
-	}
-
-	protected getData() {
-		this.service.getStatus().subscribe((data) => {
-			this.status = data;
-		});
+	constructor() {		
+	
 	}
 }

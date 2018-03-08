@@ -1,0 +1,7 @@
+<div class="container">
+    <img src="assets/uptime-logo.jpg" title="{{ title }}"/>
+    <uptime-status [status]='data.status'></uptime-status>
+    <div *ngIf='data.outageDays'>
+      <outage-log [outageDays]='data.outageDays'></outage-log>
+    </div>
+</div>

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { UptimeService } from '../uptime-service/uptime.service';
+import { Component, Input } from '@angular/core';
+import { OutageDate } from '../class/outage.class';
 
 @Component({
     selector: 'outage-log',
@@ -8,15 +8,9 @@ import { UptimeService } from '../uptime-service/uptime.service';
 })
 export class OutageLogComponent {
 	
-	protected status: any;
+	@Input() public outageDays : OutageDate[];
 
-	constructor(protected service: UptimeService) {		
-		this.getData();
-	}
-
-	protected getData() {
-		this.service.getOutages().subscribe((data) => {
-			this.status = data;
-		});
+	constructor() {			
 	}
 }
+
