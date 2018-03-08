@@ -44,7 +44,8 @@ export class WebServer {
 	}
 
 	private setJsonResponse(res : any) {
-        res.header("Content-Type", "application/json");
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Content-Type', 'application/json');
 	}
 	
     public start() {

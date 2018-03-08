@@ -1,0 +1,37 @@
+.date {
+	margin-top: 16px;
+	margin-left: 32px;	
+	font-size: 18px;
+	color: #333;
+}
+
+.card {
+	margin-top:25px;
+}
+
+.fromDate {
+	width: 33%;
+}
+
+.toDate {
+	width: 33%;
+}
+
+.duration {
+	width: 33%;
+	text-align: right;
+	padding-right: 20px;
+}
+
+.outageList {
+	margin: 0 60px;	
+	width: 85%;	
+}
+
+tr:nth-child(even) {
+	background-color: #d7f5ff
+}
+
+tr:nth-child(odd) {
+	background-color: #FFF
+}
