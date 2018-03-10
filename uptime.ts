@@ -171,7 +171,7 @@ let service: UptimeService = new UptimeService();
 service.start();
 
 let speedtest: SpeedTestService = new SpeedTestService();
-speedtest.runSpeedtest();
+speedtest.start();
 
 let webServer: WebServer = new WebServer(service);
 webServer.start();

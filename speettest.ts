@@ -7,7 +7,10 @@ export class SpeedTestService {
 
     constructor() {
         this.config = new UptimeConfig();
-        	// initial update
+    }
+
+    start() {
+        // initial update
 		this.update();
         
         // create timer
@@ -15,7 +18,7 @@ export class SpeedTestService {
             () => this.update(), 
             this.config.speedtestIntervalSeconds * this.MILLISECONDS_PER_SECOND);
     }
-
+    
     update() {
         console.log('Running SpeedTest');
         var exec = require('child_process').exec;
