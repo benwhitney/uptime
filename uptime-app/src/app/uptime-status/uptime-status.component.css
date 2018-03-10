@@ -6,3 +6,22 @@
 	padding: 10px;
 	border: solid 1px green;
 }
+
+.icon-online {
+	color: #58b358;
+	font-size: 48px;
+}
+
+.icon-offline {
+	color: red;
+	font-size: 48px;
+}
+
+.left, .right {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.left {
+	 margin-right: 20px;
+}
