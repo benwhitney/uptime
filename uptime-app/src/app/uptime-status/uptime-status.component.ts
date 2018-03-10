@@ -19,6 +19,7 @@ export class UptimeStatusComponent {
 	constructor(protected service: UptimeService) {		
 		this.getData();
 		this.moment = require('moment');
+		setInterval(() => { this.getData() }, 60000);
 	}
 
 	protected getData() {

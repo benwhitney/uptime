@@ -34,6 +34,7 @@ export class OutageLogComponent {
 			entry.label = i.toString() + ':00'
 			entry.interval = i;
 			entry.count = 0;
+			entry.minutes = 0;
 			ret.push(entry);
 		}
 
