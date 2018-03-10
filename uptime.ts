@@ -1,5 +1,6 @@
 import { UptimeConfig } from "./config";
 import { WebServer } from "./webserver";
+import { SpeedTestService } from "./speettest";
 
 export class UptimeService {
 	
@@ -168,6 +169,9 @@ export class UptimeService {
 // run the service
 let service: UptimeService = new UptimeService();
 service.start();
+
+let speedtest: SpeedTestService = new SpeedTestService();
+speedtest.runSpeedtest();
 
 let webServer: WebServer = new WebServer(service);
 webServer.start();
