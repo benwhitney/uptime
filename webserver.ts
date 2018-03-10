@@ -53,7 +53,7 @@ export class WebServer {
     private getSpeedtest(req: any, res: any) {
         this.setJsonResponse(res);
         var fs = require('fs');
-        var data = fs.readFileSync(this.speedtest.getSpeedtestLogFile() + ']');
+        var data = fs.readFileSync(this.speedtest.getSpeedtestLogFile()) + ']';
         this.logger.log('Sending speedtest file');
         res.send(data);
     }

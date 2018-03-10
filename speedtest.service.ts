@@ -24,8 +24,9 @@ export class SpeedTestService {
     update() {
         this.logger.log('Running SpeedTest');
         var exec = require('child_process').exec;
-        exec('speed-test -v -j', (error: any, stdout: string, stderr: any) => {
-            var data = JSON.parse(stdout);
+        exec('speed-test -j', (error: any, stdout: string, stderr: any) => {
+            var data = JSON.parse(stdout.trim());
+            data.testTime = new Date();
             this.logger.log('Result from speedtest',  data);
             this.writeSpeedtestLog(data);
         });
@@ -35,17 +36,28 @@ export class SpeedTestService {
         if (data) {
             const fs = require('fs');
             const filename = this.getSpeedtestLogFile();
-            let entry = JSON.stringify(data);
+            var raw = JSON.stringify(data);
+            let entry = raw;
             if (!fs.existsSync(filename)) {
-                entry = '[' + data;
+                entry = '[' + entry;
             } else {
-                entry = ',' + data;
+                entry = ',' + entry;
             }
+            this.logger.log(entry);
             fs.appendFileSync(filename, entry);
+
+            const statusFile = this.getSpeedtestStatusFile();
+            this.logger.log('Writing status to ' + statusFile);
+            this.logger.log(raw);
+            fs.writeFileSync(statusFile, raw);
         }
     }
 
     public getSpeedtestLogFile() {
         return this.config.dataFolderPath + 'speedtest.json';
+    }
+
+    public getSpeedtestStatusFile() {
+        return this.config.dataFolderPath + 'speedtest-status.json';
     }
 }
