@@ -29,10 +29,27 @@
 	width: 85%;	
 }
 
-tr:nth-child(even) {
+.outageSummary {
+	margin: 0 60px 10px;	
+	font-size: 13px;
+	width: 85%;
+	color: #444;
+}
+.outageList tr:nth-child(even) {
 	background-color: #d7f5ff
 }
 
-tr:nth-child(odd) {
-	background-color: #FFF
+.detailLabel {
+	font-weight: bold;
+	width: 25%;
+}
+
+.detailValue {
+	width: 25%;
+}
+
+.tableWrapper {
+	border: solid 1px #f4f4f4;
+	padding: 10px 5px;
+	border-radius: 5px;
 }

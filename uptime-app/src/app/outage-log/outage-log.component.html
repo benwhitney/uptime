@@ -1,21 +1,37 @@
 <div *ngIf="outageDays">
 	<div class="card" *ngFor="let outageDay of outageDays.reverse()"> 
 		<div class="card-header">
-			{{ outageDay.key }}
+			{{ outageDay.key }} 
 		</div>
 		<div class="card-body">
-			<table class="outageList" border="0" width="100%" cellpadding="5">
-				<tr>
-					<th class='fromDate'>Start Time</th>
-					<th class='toDate'>End Time</th>
-					<th class="duration">Outage Duration<th>
-				</tr>
-				<tr *ngFor="let entry of outageDay.entries">
-					<td class='fromDate'>{{ entry.startTime | date:'h:mm aa' }}</td>
-					<td class='toDate'>{{ entry.endTime | date:'h:mm aa'  }}</td>
-					<td class='duration'>{{ entry.duration }} minutes</td>
-				<tr>
-			</table>
+			<div class="tableWrapper">
+				<table class="outageSummary" cellpadding="2">
+					<tr>
+						<td class="detailLabel">Total Outages:</td><td class="detailValue">{{ outageDay.totalOutages }} outage events</td><td class="detailLabel">Average Duration:</td><td class="detailValue">{{ outageDay.averageDowntime }} mins</td>
+					</tr>				
+					<tr>
+						<td class="detailLabel">Total Downtime:</td><td class="detailValue">{{ outageDay.totalDowntime }} mins</td><td class="detailLabel">Longest Downtime:</td><td class="detailValue">{{ outageDay.maxDowntime }} mins</td>
+					</tr>
+					<tr>
+						<td class="detailLabel">Percent Uptime:</td><td class="detailValue">{{ outageDay.percentUptime }}</td><td></td><td></td>
+					</tr>			
+				</table>
+			</div>
+			<hr>
+			<div class="tableWrapper">
+				<table class="outageList" border="0" width="100%" cellpadding="5">
+					<tr>
+						<th class="fromDate">Start Time</th>
+						<th class="toDate">End Time</th>
+						<th class="duration">Outage Duration</th>
+					</tr>
+					<tr *ngFor="let entry of outageDay.entries">
+						<td class="fromDate">{{ entry.startTime | date:"h:mm aa" }}</td>
+						<td class="toDate">{{ entry.endTime | date:"h:mm aa"  }}</td>
+						<td class="duration">{{ entry.duration }} minutes</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
