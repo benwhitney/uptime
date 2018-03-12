@@ -71,6 +71,10 @@ export class OutageLogComponent {
 			this.getOutageDateKey(key).entries.push(entry);
 			this.allOutages.push(entry);
 		}
+
+		for (let day of this.outageDays) {
+			day.calculateStats();
+		}
 	}
 
 	private getOutageDateKey(key: string) : OutageDate {
@@ -90,6 +94,34 @@ export class OutageLogComponent {
 export class OutageDate {
 	public key : string;
 	public entries: OutageEntry[];	
+	public totalOutages: number;
+	public totalDowntime: number;
+	public averageDowntime: number;
+	public maxDowntime: number;
+	public percentUptime: number;
+
+	public calculateStats() {
+		this.totalOutages = 0;
+		this.totalDowntime = 0;
+		this.averageDowntime = 0;
+		this.maxDowntime = 0;
+		this.percentUptime = 0;
+
+		this.totalOutages = this.entries.length;
+		
+		for (let outage of this.entries) {
+			this.totalDowntime += outage.duration;
+			if (outage.duration > this.maxDowntime) {
+				this.maxDowntime = outage.duration;
+			}
+		}
+
+		const MIN_PER_DAY: number = 60 * 24;
+		this.averageDowntime = Number((this.totalDowntime / this.totalOutages).toFixed(2));
+
+		let totalUptime = MIN_PER_DAY - this.totalDowntime;
+		this.percentUptime = Number((totalUptime / MIN_PER_DAY).toFixed(4));
+	}
 }
 
 export class OutageEntry {	

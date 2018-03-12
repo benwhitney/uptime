@@ -1,0 +1,33 @@
+.download, .upload, .ping {
+	width: 33%;
+	color: #666;
+	font-size: 12px;
+}
+
+.fas {
+	padding-right: 10px;
+}
+
+.result {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+td {
+	color: #666;
+	text-align:center; 
+	font-size: 16px;
+}
+
+.average {
+	font-size: 10px;
+}
+
+.status {
+	font-size: 14px;
+}
+
+.btn {
+	margin-top: 10px;
+	margin-right: 20px;
+}

@@ -10,7 +10,7 @@ import { UptimeStatus } from '../class/outage.class';
 })
 export class UptimeStatusComponent {
 	
-	protected status: UptimeStatus;
+	public status: UptimeStatus;
 	protected minutes: number;
 	protected moment: any; 
 	protected fromNow: string;
