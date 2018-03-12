@@ -27,6 +27,13 @@ export class WebServer {
         this.app.use('/speedtest', (req: any, res: any) => {
             this.getSpeedtest(req, res);
         });
+        this.app.use('/speedtestStatus', (req: any, res: any) => {
+            this.getSpeedtestStatus(req, res);
+        });
+
+        this.app.post('/runSpeedtest', (req: any, res: any) => {
+            this.runSpeedtest(req, res);
+        })
 
         //this.app.use('/status/:lat/:lon',(req :any, res: any) => { this.setLocation(req, res) });
 
@@ -55,6 +62,24 @@ export class WebServer {
         var fs = require('fs');
         var data = fs.readFileSync(this.speedtest.getSpeedtestLogFile()) + ']';
         this.logger.log('Sending speedtest file');
+        res.send(data);
+    }
+
+    private runSpeedtest(req: any, res: any) {
+        this.setJsonResponse(res);
+        this.logger.log('Running speedtest now!');
+
+        this.speedtest.update((data:any) => {
+            this.logger.log('Speedtest complete', data);
+            res.send(data);
+        })
+    }
+
+    private getSpeedtestStatus(req: any, res: any) {
+        this.setJsonResponse(res);
+        var fs = require('fs');
+        var data = fs.readFileSync(this.speedtest.getSpeedtestStatusFile());
+        this.logger.log('Sending speedtest status');
         res.send(data);
     }
 

@@ -1,4 +1,36 @@
-<div>
-	<h1>Speedtest Status</h1>
+<div *ngIf="summary" class="alert alert-info">
+	<table border="0" cellpadding='3' width='100%'>
+		<tr>
+			<td class="ping"><i class="fas fa-arrows-alt-h"></i> PING</td>
+			<td class="download"><i class="fas fa-download"></i> DOWNLOAD</td>
+			<td class="upload"><i class="fas fa-upload"></i> UPLOAD</td>
+		</tr>
+		<tr>
+			<td class="result">{{ summary.latest.ping }} <span class="ms">ms</span></td>
+			<td class="result">{{ summary.latest.download }} <span class="mbps">MB/s</span></td>
+			<td class="result">{{ summary.latest.upload }} <span class="mbps">MB/s</span></td>
+		</tr>
+		<tr>
+			<td class="average">
+				Avg: {{ summary.avg.ping }} ms <br />
+				Min: {{ summary.min.ping }} ms <br />
+				Max: {{ summary.max.ping }} ms <br />
+			</td>
+			<td class="average">
+				Avg: {{ summary.avg.download }} MB/s <br />
+				Min: {{ summary.min.download }} MB/s <br />
+				Max: {{ summary.max.download }} MB/s <br />
+			</td>
+			<td class="average">
+				Avg: {{ summary.avg.upload }} MB/s <br />
+				Min: {{ summary.min.upload }} MB/s <br />
+				Max: {{ summary.max.upload }} MB/s <br />
+			</td>
+		</tr>
+		
+	</table>
+	<p>
+		<button class='btn btn-primary' [disabled]="btnDisabled" (click)="refresh()">Refresh</button>{{ relativeSpeed}} -  Speedtest ran {{ testTimeAgo }}  
+	</p>
 	
 </div>

@@ -18,4 +18,12 @@ export class UptimeService {
 	public getOutages() {
 		return this.http.get(this.baseUrl + '/outage');
 	}
+
+	public getSpeedtest() {
+		return this.http.get(this.baseUrl + '/speedtest');
+	}
+
+	public refreshSpeedtest() {
+		return this.http.post(this.baseUrl + '/runSpeedtest', null);
+	}
 }

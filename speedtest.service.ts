@@ -21,14 +21,21 @@ export class SpeedTestService {
             this.config.speedtestIntervalSeconds * this.MILLISECONDS_PER_SECOND);
     }
     
-    update() {
+    update(callback? : any) {
         this.logger.log('Running SpeedTest');
         var exec = require('child_process').exec;
         exec('speed-test -j', (error: any, stdout: string, stderr: any) => {
-            var data = JSON.parse(stdout.trim());
-            data.testTime = new Date();
-            this.logger.log('Result from speedtest',  data);
-            this.writeSpeedtestLog(data);
+            try {
+                var data = JSON.parse(stdout.trim());
+                data.testTime = new Date();
+                this.logger.log('Result from speedtest',  data);
+                this.writeSpeedtestLog(data);
+                if (callback) {
+                    callback(data);
+                }
+            } catch (error) {
+                this.logger.log('Exception running speedtest. ', error);
+            }
         });
     }
 
