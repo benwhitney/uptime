@@ -1,0 +1,15 @@
+<div class="chart">
+    <div class="uptimeBar">
+        <div *ngFor="let entry of entries" class="entry" 
+        [style.left]="entry.xOffset + 'px'" 
+        [style.width]="entry.width + 'px'"
+        ngbTooltip="{{ entry.entry.startTime | date:'h:mm aa'}} - {{ entry.entry.endTime | date:'h:mm aa' }}"></div>
+    </div>
+
+    
+    <table width="696px">
+        <tr>
+            <td *ngFor="let hour of hours" [attr.width]="'99px'">{{ hour }}:00</td>
+        </tr>
+    </table>
+</div>

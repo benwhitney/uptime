@@ -1,6 +1,7 @@
 declare var require: any;
 import { Component } from '@angular/core';
 import { UptimeService } from '../uptime-service/uptime.service';
+import { OutageEntry } from '../class/outage.class';
 
 @Component({
     selector: 'outage-log',
@@ -122,12 +123,6 @@ export class OutageDate {
 		let totalUptime = MIN_PER_DAY - this.totalDowntime;
 		this.percentUptime = Number((totalUptime / MIN_PER_DAY).toFixed(4));
 	}
-}
-
-export class OutageEntry {	
-	public startTime: Date;
-	public endTime: Date;
-	public duration: number;
 }
 
 export class TimeOfDayCount {

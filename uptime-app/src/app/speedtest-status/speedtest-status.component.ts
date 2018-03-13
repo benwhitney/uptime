@@ -42,9 +42,6 @@ export class SpeedtestStatusComponent {
 		this.summary = new SpeedtestSummary();
 		this.summary.processResults(data);
 		this.interpretSpeed();
-
-		console.log(this.zScore);
-		console.log(this.summary);
 	}
 
 	private interpretSpeed() {
