@@ -34,6 +34,7 @@ export class SpeedtestStatusComponent {
 			this.summary.latest = data;
 			this.interpretSpeed();
 			this.btnDisabled = false;
+			this.getData();
 		});
 	}
 

@@ -11,11 +11,20 @@ import * as ChartJS from 'chart.js'
     styleUrls: ['./speedtest-chart.component.css']
 })
 export class SpeedtestChartComponent implements OnInit {
-    @Input() public data : SpeedtestEntry[];
-
+    @Input() public set data(value: SpeedtestEntry[])  {
+        this._data = value;
+        this.refresh();
+    }
+    public get data() : SpeedtestEntry[] {
+        return this._data;
+    }
+    private _data: SpeedtestEntry[];
     public filteredData : SpeedtestEntry[];
-
-    @Input() public lastHours : number;
+    private _lastHours: number;
+    @Input() public set lastHours(value: number) {
+        this._lastHours = value;
+        this.refresh();
+    }
     @ViewChild("chart", {read: ElementRef}) protected chart: ElementRef;
     
     constructor() {
@@ -23,6 +32,9 @@ export class SpeedtestChartComponent implements OnInit {
     }
 
     public ngOnInit() {
+    }
+
+    public refresh() {
         this.filterLastHours();
         this.buildChart();
     }
@@ -90,7 +102,7 @@ export class SpeedtestChartComponent implements OnInit {
     public filterLastHours() {
         let moment = require('moment');
         this.filteredData = this.data.filter((entry) => {
-            return entry.testTime && moment(entry.testTime).isAfter(moment().subtract(this.lastHours, 'hours'));
+            return entry.testTime && moment(entry.testTime).isAfter(moment().subtract(this._lastHours, 'hours'));
         });
         console.log('filtered data', this.filteredData);
     }
