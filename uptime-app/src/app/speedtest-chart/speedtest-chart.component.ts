@@ -2,7 +2,7 @@ declare var require: any;
 
 import { Component, Input, ElementRef, ViewChild } from "@angular/core";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
-import { SpeedtestEntry } from "../speedtest-status/speedtest-status.component";
+import { SpeedtestEntry, SpeedtestSummary } from "../speedtest-status/speedtest-status.component";
 import * as ChartJS from 'chart.js'
 
 @Component({
@@ -30,32 +30,48 @@ export class SpeedtestChartComponent implements OnInit {
     public buildChart() { 
         const ctx = this.chart.nativeElement.getContext('2d');
 
+        var summary = new SpeedtestSummary();
+        summary.processResults(this.filteredData);
+        console.log('Summary of filtered', summary );
+
         var downloadSpeeds: number[] = [];
         var uploadSpeeds: number[] = [];
         var ping: number[] = [];
         var times: string[] = [];
         let moment = require('moment');
-        let colors: string [] = [];
-
+        let downloadColors: string [] = [];
+        let uploadColors: string [] = [];
+        
         for (var entry of this.filteredData) {
             downloadSpeeds.push(entry.download);
             uploadSpeeds.push(entry.upload);
             ping.push(entry.ping);
-            colors.push['#440000'];
-            times.push(entry.testTime.toDateString()); // moment(entry.testTime).format('hh:mm'));
+            let zScore = (summary.zScore(entry));
+            downloadColors.push('rgba(0, 255, 0, .5)');
+            uploadColors.push('rgba(255, 0, 0, .5)');
+            // if (zScore.download > 0) {
+            //     colors.push('rgba(0, 255, 0, 1)');                 
+            // } else {
+            //     colors.push('rgba(255, 0, 0, 1)');                                 
+            // }
+            times.push(moment(entry.testTime).format('HH:mm'));
         }
 
         console.log (downloadSpeeds.length);
         let myChart = new ChartJS(ctx, {
             type: 'line',
             data: {
-                labels: [times],
+                labels: times,
                 datasets: [{
+                    label: 'Upload Speed',
+                    data: uploadSpeeds,
+                    backgroundColor: uploadColors,
+                    borderWidth: 1,
+                },{
                     label: 'Download Speed',
                     data: downloadSpeeds,
-                    backgroundColor: [colors
-                    ],
-                    borderWidth: 1
+                    backgroundColor: downloadColors,
+                    borderWidth: 1,
                 }]
             },
             options: {
