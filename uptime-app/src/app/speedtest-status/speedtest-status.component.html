@@ -1,4 +1,7 @@
 <div *ngIf="summary" class="alert alert-info">
+	<div class="charts">
+		<speedtest-chart [data]="data" [lastHours]="4"></speedtest-chart>
+	</div>
 	<table border="0" cellpadding='3' width='100%'>
 		<tr>
 			<td class="ping"><i class="fas fa-arrows-alt-h"></i> PING</td>
