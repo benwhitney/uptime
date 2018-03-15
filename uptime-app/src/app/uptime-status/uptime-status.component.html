@@ -7,7 +7,8 @@
 			</div>
 			<div class='right'>
   				<h4 class="alert-heading">The internet is up!</h4>
-				<p>Internet access was restored {{ fromNow }}.</p> 
+				<p>Internet access was restored {{ fromNow }}.<br>
+				Uptime: {{ uptime }}</p>
 			</div>
 		</div>
 	</div>
@@ -18,7 +19,8 @@
 			</div>
 			<div class="right">
   				<h4 class="alert-heading">THE INTERNET IS DOWN!</h4>
-				<p>Internet access was lost {{ fromNow }}.</p> 
+				<p>Internet access was lost {{ fromNow }}.  {{ uptime }}<br>
+				Downtime: {{ uptime }}</p> 
 			</div>
 		</div>
 	</div>
