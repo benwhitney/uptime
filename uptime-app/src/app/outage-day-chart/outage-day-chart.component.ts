@@ -13,7 +13,6 @@ export class OutageDayChartComponent {
         // this._outageDay = this.getMockData();
         this.calculateEvents();
         this.calculateOffset();
-        console.log('entries', this._outageDay, this.entries);
     };
     public get outageDay() : OutageDate {
         return this._outageDay;
@@ -22,7 +21,7 @@ export class OutageDayChartComponent {
     private getMockData() :OutageDate {
         let outageDate = new OutageDate();
         outageDate.key = 'asdf'
-        outageDate.entries =[];
+        outageDate.entries = [];
 
         let moment = require('moment');
         for (let i = 0; i < 24; i ++ ) {
@@ -85,7 +84,6 @@ export class OutageDayChartComponent {
         let hrs: number = date.getHours();
         let mins: number = date.getMinutes();
         let pctOfDay : number = ((hrs * this.MINS_PER_HOUR) + mins) / this.MINS_PER_DAY;
-        console.log(date, hrs, mins, pctOfDay);
         return pctOfDay;
     }
 }

@@ -9,6 +9,8 @@ import { UptimeService } from './uptime-service/uptime.service';
 import { OutageLogComponent } from './outage-log/outage-log.component';
 import { SpeedtestStatusComponent } from './speedtest-status/speedtest-status.component';
 import { OutageDayChartComponent } from './outage-day-chart/outage-day-chart.component';
+import { SpeedtestChartComponent } from './speedtest-chart/speedtest-chart.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
     declarations: 
@@ -17,7 +19,9 @@ import { OutageDayChartComponent } from './outage-day-chart/outage-day-chart.com
         UptimeStatusComponent, 
         OutageLogComponent, 
         SpeedtestStatusComponent, 
-        OutageDayChartComponent],
+        OutageDayChartComponent,
+        SpeedtestChartComponent,
+        SpinnerComponent],
     imports: [NgbModule.forRoot(), BrowserModule, HttpClientModule],
     providers: [UptimeService],
     bootstrap: [AppComponent],
