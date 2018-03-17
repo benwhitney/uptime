@@ -11,11 +11,13 @@ import { SpeedtestStatusComponent } from './speedtest-status/speedtest-status.co
 import { OutageDayChartComponent } from './outage-day-chart/outage-day-chart.component';
 import { SpeedtestChartComponent } from './speedtest-chart/speedtest-chart.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { AboutUptimeComponent } from './about-uptime/about-uptime';
 
 @NgModule({
     declarations: 
     [
         AppComponent,
+        AboutUptimeComponent,
         UptimeStatusComponent, 
         OutageLogComponent, 
         SpeedtestStatusComponent, 

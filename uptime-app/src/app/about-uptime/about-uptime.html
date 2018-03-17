@@ -1,0 +1,18 @@
+<h1>
+    Internet Outage Report
+</h1>
+<h2>
+    About this report
+</h2>
+<div class="about">
+    <p>This report was created using Uptime Home Internet Reliability Monitor (<a href="https://github.com/benwhitney/uptime">https://github.com/benwhitney/uptime</a>).
+    Running on a Node.js server, this app uses <a href="https://www.npmjs.com/package/is-online">is-online</a> to check 
+     online status, by performing the following checks in parallel:</p>
+    <ul>
+        <li>Retrieve icanhazip.com via HTTPS</li>
+        <li>Query myip.opendns.com on OpenDNS</li>
+        <li>Retrieve Apple's Captive Portal test page </li>
+    </ul>
+    If any of the above succeed, within 5 seconds, the internet is online.  Online status is checked every <b>{{ updateIntervalSeconds }} seconds</b> and logged.
+    
+</div>

@@ -2,7 +2,6 @@ declare var require: any;
 import { Component } from '@angular/core';
 import { UptimeService } from '../uptime-service/uptime.service';
 import { UptimeStatus } from '../class/outage.class';
-import { uptime } from 'os';
 
 @Component({
     selector: 'uptime-status',
