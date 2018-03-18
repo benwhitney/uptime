@@ -2,32 +2,58 @@
     <h1 class="display-3">Outage Report</h1>
     <p class="lead">This report can be sent to your ISP to provide them with a log of your internet outages.</p>
     <hr class="my-4">
-    <p>Select the report options you want, click the Print Report button, and save the report as PDF. You can also download a JSON file with the full list of outage occurances.</p>
+    <p>Select the report options you want, click the Print Report button, and save the report as PDF. You can also download
+        a JSON file with the full list of outage occurances.</p>
     <h5>Report Options</h5>
     <div class="form-group">
         <table>
             <tr>
-                <td>
-                <div class="form-label">Start Date:</div>
-            </td>
-            <td><select class="form-control">
-                    <option value="3">Last 3 Days</option>
-                    <option value="7" selected>Last 7 Days</option>
-                    <option value="14">Last 14 Days</option>
-                    <option value="0">All Time</option>
-                </select>
-            </td>
+                <td width="30%">
+                    <div class="form-label">Report Length:</div>
+                </td>
+                <td width="50%">
+                    <select class="form-control">
+                        <option value="3">Last 3 Days</option>
+                        <option value="7" selected>Last 7 Days</option>
+                        <option value="14">Last 14 Days</option>
+                        <option value="0">All Time</option>
+                    </select>
+                </td>
             </tr>
-            
-            <div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" value="">
-                    Include report header (About Uptime)
-                </label>
-            </div>
+            <tr>
+                <td>
+                    <div class="form-label">Home Address (optional):</div>
+                </td>
+                <td>
+                    <input type="text" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-label">Account # (optional):</div>
+                </td>
+                <td>
+                    <input type="text" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-label">Other Options:</div>
+                </td>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value=""> Include summary
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value=""> Include report header (About Uptime)
+                    </label>
+                </div>
+            </tr>
         </table>
     </div>
-    
+
     <p class="lead">
         <button class="btn btn-primary btn-lg" role="button" (click)="print()">Print Report</button>
     </p>
