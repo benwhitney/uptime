@@ -16,12 +16,14 @@ export class UptimeStatusComponent {
 	protected fromNow: string;
 	protected changeDate: Date;
 	protected uptime: string;
+	protected updateInterval: number = 60;
+	protected MS_PER_SECOND: number = 1000;
 
 	constructor(protected service: UptimeService) {		
 		this.getData();
 		this.moment = require('moment');
-		setInterval(() => { this.getData() }, 60000);
-		setInterval(() => { this.tick()}, 1000);
+		setInterval(() => { this.getData() }, this.updateInterval * this.MS_PER_SECOND);
+		setInterval(() => { this.tick()}, this.MS_PER_SECOND);
 	}
 
 	protected tick() {

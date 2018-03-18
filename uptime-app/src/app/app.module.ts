@@ -12,20 +12,47 @@ import { OutageDayChartComponent } from './outage-day-chart/outage-day-chart.com
 import { SpeedtestChartComponent } from './speedtest-chart/speedtest-chart.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { AboutUptimeComponent } from './about-uptime/about-uptime';
+import { UptimeReportComponent } from './uptime-report/uptime-report';
+import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard-component';
+
+const appRoutes : Routes = [
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'report', component: UptimeReportComponent },
+    { path: '',
+        redirectTo: '/dashboard',
+        pathMatch: 'full'
+    },
+]
 
 @NgModule({
     declarations: 
     [
         AppComponent,
         AboutUptimeComponent,
+        DashboardComponent,
         UptimeStatusComponent, 
         OutageLogComponent, 
         SpeedtestStatusComponent, 
         OutageDayChartComponent,
         SpeedtestChartComponent,
-        SpinnerComponent],
-    imports: [NgbModule.forRoot(), BrowserModule, HttpClientModule],
-    providers: [UptimeService],
+        SpinnerComponent,
+        UptimeReportComponent,
+    ],
+    imports: 
+    [
+        RouterModule.forRoot(
+            appRoutes,
+            { enableTracing: true } // <-- debugging purposes only
+          ),      
+        NgbModule.forRoot(), 
+        BrowserModule,
+        HttpClientModule,
+    ],
+    providers: 
+    [
+        UptimeService
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
